@@ -1,0 +1,22 @@
+{
+  "name": "LDR Box Cyberdeck",
+  "short_name": "LDR Box",
+  "description": "Application de communication en temps réel pour la LDR Box Cyberdeck",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0d0211",
+  "theme_color": "#a100ff",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/a100ff/ffffff?text=LDR",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://placehold.co/512x512/a100ff/ffffff?text=LDR+Box",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

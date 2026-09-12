@@ -1,0 +1,220 @@
+/* ===================================================================
+   LDR BOX - Appli compagnon
+   Palette redessinee pour etre plus douce, en reprenant les vraies
+   couleurs de l'ecran TFT du cadre : fond violet, blanc, jaune/orange.
+   =================================================================== */
+
+:root {
+  --bg-1: #33195a;
+  --bg-2: #24123f;
+  --panel: rgba(255, 255, 255, 0.055);
+  --panel-border: rgba(255, 255, 255, 0.22);
+  --text: #f3ecfb;
+  --text-dim: #c9bcdd;
+  --gold: #ffd66b;      /* reprend TFT_YELLOW */
+  --coral: #ffab7a;     /* reprend TFT_ORANGE */
+  --lavender: #c9a7e8;
+  --ok: #7be8b8;
+  --shadow: rgba(15, 5, 30, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  color: var(--text);
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 22px 16px 60px;
+  max-width: 480px;
+  margin-inline: auto;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(255, 214, 107, 0.35);
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+h1 { font-size: 1.35em; margin-bottom: 4px; }
+h2 { font-size: 1em; color: var(--text-dim); text-shadow: none; font-weight: normal; margin-top: 0; }
+h3 { font-size: 1.05em; margin-top: 0; }
+
+/* ---------- Ecran de selection de profil ---------- */
+#auth-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  gap: 6px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+  width: 100%;
+}
+
+.auth-buttons button {
+  flex: 1;
+  aspect-ratio: 1 / 1;
+  background: var(--panel);
+  border: 1.5px solid var(--panel-border);
+  border-radius: 18px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1.05em;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px var(--shadow);
+  transition: all 0.25s ease;
+}
+
+.auth-buttons button:hover,
+.auth-buttons button:active {
+  border-color: var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 22px rgba(255, 214, 107, 0.28), 0 8px 24px var(--shadow);
+  transform: translateY(-2px);
+}
+
+/* ---------- Barre d'en-tete de l'interface ---------- */
+.header-interface {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78em;
+  color: var(--text-dim);
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+}
+
+#user-badge { color: var(--gold); }
+
+/* ---------- Panels ---------- */
+.panel {
+  border: 1.5px solid var(--panel-border);
+  background: var(--panel);
+  padding: 18px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px var(--shadow);
+}
+
+/* ---------- Champs ---------- */
+input[type="text"],
+input[type="datetime-local"],
+input[type="file"] {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1.5px solid var(--panel-border);
+  color: var(--text);
+  padding: 11px 12px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  font-family: inherit;
+  border-radius: 10px;
+}
+
+input[type="text"]::placeholder { color: var(--text-dim); }
+
+input:focus, button:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 214, 107, 0.18);
+}
+
+label { color: var(--text-dim) !important; }
+
+/* ---------- Boutons ---------- */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#btn-send-txt, #btn-send-retrouvailles, #btn-send-programmed,
+#btn-open-camera, #btn-send-photo, #btn-send-schedule,
+#btn-capture-photo {
+  width: 100%;
+  background: rgba(255, 214, 107, 0.08);
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  padding: 13px;
+  font-weight: bold;
+  border-radius: 12px;
+  text-shadow: 0 0 6px rgba(255, 214, 107, 0.25);
+  transition: all 0.22s ease;
+}
+
+#btn-send-txt:hover, #btn-send-retrouvailles:hover, #btn-send-programmed:hover,
+#btn-open-camera:hover, #btn-send-photo:hover, #btn-send-schedule:hover,
+#btn-capture-photo:hover {
+  background: var(--gold);
+  color: var(--bg-2);
+  box-shadow: 0 0 16px rgba(255, 214, 107, 0.35);
+}
+
+.btn-small, #btn-logout, #btn-switch-camera, #btn-close-camera {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid var(--lavender);
+  color: var(--lavender);
+  padding: 8px 14px;
+  border-radius: 9px;
+  font-size: 0.85em;
+  transition: all 0.22s ease;
+}
+
+.btn-small:hover, #btn-logout:hover, #btn-switch-camera:hover, #btn-close-camera:hover {
+  background: var(--lavender);
+  color: var(--bg-2);
+}
+
+/* ---------- Statuts / camera ---------- */
+#photo-status, #schedule-status {
+  font-size: 0.82em;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  text-align: center;
+  border: 1px dashed var(--panel-border);
+  padding: 9px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+#camera-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#camera-preview {
+  border: 1.5px solid var(--panel-border);
+  border-radius: 12px;
+}
+
+.photo-grid { display: flex; gap: 10px; margin-bottom: 10px; }
+
+/* ---------- Flux / historique ---------- */
+#history-feed {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feed-item {
+  font-size: 0.82em;
+  color: var(--text-dim);
+  border-left: 3px solid var(--coral);
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 0 8px 8px 0;
+}

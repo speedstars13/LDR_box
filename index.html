@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDR Box - Panneau de controle</title>
+<style>
+  :root {
+    --bg-1: #33195a;
+    --bg-2: #24123f;
+    --text: #f3ecfb;
+    --text-dim: #c9bcdd;
+    --lavender: #c9a7e8;
+    --gold: #ffd66b;
+    --coral: #ffab7a;
+    --ok: #7be8b8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg-1);
+    color: var(--text);
+    font-family: system-ui, sans-serif;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  h1 { color: var(--gold); font-size: 1.4rem; }
+  h2 { color: var(--lavender); font-size: 1.05rem; margin-top: 28px; }
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--lavender);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  input, textarea, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--lavender);
+    background: var(--bg-1);
+    color: var(--text);
+    font-size: 1rem;
+  }
+  button {
+    background: var(--gold);
+    color: #241730;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  button.secondary { background: var(--lavender); }
+  .row { display: flex; gap: 10px; }
+  .row > * { flex: 1; }
+  #history-feed {
+    max-height: 220px;
+    overflow-y: auto;
+    background: var(--bg-1);
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+  .feed-item { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .feed-user { color: var(--coral); font-weight: bold; margin-right: 6px; }
+  #camera-container { display: none; }
+  #camera-preview, #camera-canvas { width: 100%; border-radius: 8px; }
+  #camera-canvas { display: none; }
+  #user-badge {
+    display: inline-block;
+    background: var(--ok);
+    color: #113322;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  small { color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<h1>LDR Box - Panneau de controle</h1>
+
+<!-- ============================================================
+     1. ECRAN DE CONNEXION (choix du profil)
+     ============================================================ -->
+<section id="auth-section" class="card">
+  <p>Qui es-tu ?</p>
+  <div class="row">
+    <!-- Personnalisez ces libelles avec vos propres prenoms -->
+    <button id="btn-person-a">Personne A</button>
+    <button id="btn-person-b">Personne B</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     2. INTERFACE PRINCIPALE (visible une fois connecte)
+     ============================================================ -->
+<section id="interface-section" style="display:none;">
+
+  <div class="row" style="align-items:center; margin-bottom: 10px;">
+    <span id="user-badge"></span>
+    <button id="btn-logout" class="secondary" style="max-width:120px;">Changer</button>
+  </div>
+
+  <!-- --- Message texte --- -->
+  <div class="card">
+    <h2>Envoyer un message</h2>
+    <textarea id="message-input" rows="3" placeholder="Ecris ton message..."></textarea>
+    <button id="btn-send-txt">Envoyer le message</button>
+  </div>
+
+  <!-- --- Photo --- -->
+  <div class="card">
+    <h2>Envoyer une photo</h2>
+    <input type="file" id="photo-input" accept="image/*">
+    <p><small id="photo-status">Aucune photo selectionnee</small></p>
+    <div class="row">
+      <button id="btn-open-camera" class="secondary">Ouvrir la camera</button>
+      <button id="btn-send-photo">Envoyer</button>
+    </div>
+    <div id="camera-container">
+      <video id="camera-preview" autoplay playsinline></video>
+      <canvas id="camera-canvas"></canvas>
+      <div class="row" style="margin-top:8px;">
+        <button id="btn-switch-camera" class="secondary">Changer de camera</button>
+        <button id="btn-capture-photo">Capturer</button>
+        <button id="btn-close-camera" class="secondary">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- Emploi du temps --- -->
+  <div class="card">
+    <h2>Emploi du temps</h2>
+    <input type="file" id="schedule-input" accept="image/*">
+    <p><small id="schedule-status">Aucune image selectionnee</small></p>
+    <button id="btn-send-schedule">Envoyer l'emploi du temps</button>
+  </div>
+
+  <!-- --- Retrouvailles (compteur + jauge, partage entre les 2 boitiers) --- -->
+  <div class="card">
+    <h2>Prochaines retrouvailles</h2>
+    <input type="date" id="retrouvailles-date">
+    <button id="btn-send-retrouvailles">Lancer le compte a rebours</button>
+    <p><small>Redemarre aussi la jauge de progression a 0%.</small></p>
+  </div>
+
+  <!-- --- Capsule temporelle (message programme) --- -->
+  <div class="card">
+    <h2>Capsule temporelle</h2>
+    <textarea id="programmed-msg-input" rows="2" placeholder="Message secret..."></textarea>
+    <input type="datetime-local" id="programmed-date">
+    <button id="btn-send-programmed">Sceller la capsule</button>
+  </div>
+
+  <!-- --- Historique --- -->
+  <div class="card">
+    <h2>Historique</h2>
+    <div id="history-feed"></div>
+  </div>
+
+</section>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
