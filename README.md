@@ -45,3 +45,6 @@ docs/
 
 - The exact Firebase data schema (all keys used) is detailed in `docs/SETUP_FIREBASE.md`.
 - `webapp/index.html` includes minimal self-contained styling (no external CSS dependencies)—feel free to customize colors, "Person A/B" labels, etc.
+
+
+*the creation of the code was assisted by IA
